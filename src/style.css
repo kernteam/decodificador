@@ -1,0 +1,366 @@
+/*  ________   _
+ * |  __ \  \ | |
+ * | |__| |  \| | Author: Rob Niemeyer
+ * |  _  / |\   | https://coreteam.com.br
+ * |_| \_\_| \__| https://smallunit.github.io
+ */
+
+@font-face {
+  font-family: Inter;
+  src: local('Inter Regular'), local('Inter-Regular'), url(fonts/Inter-Regular.ttf) format('truetype');
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: local('Inter Bold'), local('Inter-Bold'), url(fonts/Inter-Bold.ttf) format('truetype');
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tornado {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+:root {
+  --color-background-primary: #f3f5fc;
+  --color-background-secondary: #ffffff;
+  --color-text-primary: #343a40;
+  --color-text-secondary: #495057;
+  --color-theme: #0a3871;
+  --shadow: 0px 24px 32px -8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  padding: 0;
+  color: currentcolor;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-size: inherit;
+}
+
+html {
+  height:100%;
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 16px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+header {
+  padding: 1.5rem 1rem;
+  color: var(--color-theme);
+}
+
+main {
+  padding: 3.5rem 1rem 1.5rem;
+}
+
+ul {
+  list-style: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.color-text-secondary {
+  color: var(--color-text-secondary);
+}
+
+footer {
+  padding: .5rem 1rem;
+}
+
+footer p,
+footer a {
+  display: inline;
+}
+
+a, a:any-link {
+  transition: color .2s ease;
+}
+
+a:hover {
+  color: var(--color-theme);
+}
+
+a#home {
+  color: currentcolor;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* Display */
+
+.container {
+  width: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.align-content-center {
+  align-content: center;
+}
+
+.align-content-between {
+  align-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+/* End Display */
+/* Textarea */
+
+textarea,
+::placeholder {
+  color: var(--color-theme);
+}
+
+textarea {
+  width: 100%;
+  background-color: transparent;
+  font-size: 2rem;
+  resize: none;
+}
+
+textarea:focus {
+  outline: unset;
+}
+
+/* End Textarea */
+/* Warning */
+
+#warning {
+  gap: .5rem;
+  margin: 1rem 0;
+  color: var(--color-text-secondary);
+  font-size: .75rem;
+}
+
+/* End Warning */
+/* Buttons */
+
+#action-buttons {
+  gap: 1.5rem;
+}
+
+button {
+  width: 100%;
+  padding: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #d8dfe8;
+  cursor: unset;
+}
+
+.button-primary {
+  background-color: var(--color-theme);
+  color: #ffffff;
+}
+
+.button-secondary {
+  border-color: var(--color-theme);
+  color: var(--color-theme);
+}
+
+/* End Buttons */
+/* Card */
+
+.card {
+  margin-top: 4rem;
+  border-radius: 32px;
+  padding: 2rem;
+  background-color: var(--color-background-secondary);
+  box-shadow: var(--shadow);
+}
+
+.card-image {
+  display: none;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+#instructions {
+  gap: 1rem;
+  animation: fadein .2s;
+}
+
+#message {
+  display: none;
+  gap: 2rem;
+  height: 100%;
+  word-break: break-word;
+}
+
+#output {
+  font-size: 1.5rem;
+  user-select: all;
+}
+
+/* End Card */
+/* Tooltip */
+.tooltip-wrapper {
+  position: relative;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 125%;
+  left: calc(50% - 71.74px);
+  border-radius: 12px;
+  padding: .5rem 1rem;
+  background-color: var(--color-text-secondary);
+  color: #ffffff;
+  opacity: 0;
+  text-align: center;
+  z-index: 1;
+  transition: opacity .2s ease;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -3px;
+  border-width: 6px;
+  border-style: solid;
+  border-top-color: var(--color-text-secondary);
+}
+
+/* End Tooltip */
+/* Responsiveness */
+
+/* Tablet */
+@media screen and (min-width: 48rem) {
+  header {
+    padding: 4.75rem 2.5rem;
+  }
+
+  main {
+    padding: 1.5rem;
+  }
+
+  .text-left-tablet {
+    text-align: left;
+  }
+
+  .text-right-tablet {
+    text-align: right;
+  }
+
+  .two-equal-tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  textarea {
+    min-height: 560px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 75rem) {
+  header {
+    position: absolute;
+    padding: 2.5rem 5.25rem;
+  }
+
+  main.container {
+    min-height: calc(100vh - 2.5rem);
+  }
+
+  main.grid-container {
+    grid-template-columns: auto 25rem;
+    gap: 5rem;
+  }
+
+  #form {
+    grid-template-rows: auto min-content min-content;
+  }
+
+  textarea {
+    margin-top: 9rem;
+  }
+
+  #action-buttons {
+    padding-bottom: 2rem;
+  }
+
+  .card {
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .tornado {
+    animation: tornado .4s;
+  }
+ 
+  #instructions {
+    height: 100%;
+  }
+
+  .card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+}
